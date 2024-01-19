@@ -21,8 +21,16 @@
     <label for="orderCurrency">Order Currency:</label>
     <input type="text" id="orderCurrency" name="orderCurrency" value="USD"><br><br>
     
-    <button onclick="openPaymentWidget()">Pay with ATLOS</button>
-    
+<button onclick="atlos.Pay({
+            merchantId: 'R2KOB5MP23',
+            orderId: '123465',
+            orderAmount: 1.00,
+            orderCurrency: 'USD',
+            recurrence: atlos.RECURRENCE_NONE,
+            onSuccess: handleSuccess,
+            onCanceled: handleCanceled,
+            theme: 'dark',
+        })" class="button secondary transition">Click to Pay</button>
 <script>
     // Function to load the ATLOS payment widget
     function loadAtlosPaymentWidget() {
