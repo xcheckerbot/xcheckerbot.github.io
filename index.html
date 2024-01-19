@@ -23,19 +23,44 @@
     
     <button onclick="openPaymentWidget()">Pay with ATLOS</button>
     
-    <script>
-        function openPaymentWidget() {
-            const merchantId = document.getElementById("merchantId").value;
-            const orderId = document.getElementById("orderId").value;
-            const orderAmount = document.getElementById("orderAmount").value;
-            const orderCurrency = document.getElementById("orderCurrency").value;
+<script>
+    // Function to load the ATLOS payment widget
+    function loadAtlosPaymentWidget() {
+        const merchantId = 'R2KOB5MP23'; // Replace with your ATLOS Merchant ID
+        const orderId = document.getElementById('orderId').value;
+        const orderAmount = document.getElementById('orderAmount').value;
+        const orderCurrency = 'USD'; // Replace with your desired currency
 
-            // Generate the payment widget URL with parameters
-            const paymentUrl = `https://atlos.io/api/paymentWidget?merchantId=${merchantId}&orderId=${orderId}&orderAmount=${orderAmount}&orderCurrency=${orderCurrency}`;
+        // Create a script element to load the ATLOS payment widget script
+        const script = document.createElement('script');
+        script.src = `https://atlos.io/api/paymentWidget?merchantId=${merchantId}&orderId=${orderId}&orderAmount=${orderAmount}&orderCurrency=${orderCurrency}`;
+        script.type = 'text/javascript';
+        script.async = true;
 
-            // Open the payment widget in a new window
-            window.open(paymentUrl, "_blank");
+        // Append the script to the document
+        document.head.appendChild(script);
+    }
+
+    // Function to handle the payment response
+    function handlePaymentResponse(response) {
+        // Handle the payment response here
+        console.log('Payment Response:', response);
+
+        // You can perform actions based on the payment response, e.g., update order status
+    }
+
+    // Function to open the payment widget
+    function openPaymentWidget() {
+        loadAtlosPaymentWidget();
+    }
+
+    // Add an event listener to handle the payment response
+    window.addEventListener('message', function (event) {
+        if (event.origin === 'https://atlos.io' && event.data && event.data.event === 'paymentResponse') {
+            handlePaymentResponse(event.data.data);
         }
-    </script>
+    });
+</script>
+
 </body>
 </html>
