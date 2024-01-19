@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLOS Payment Page</title>
+</head>
+<body>
+    <h1>ATLOS Payment Page</h1>
+    <p>Enter the payment details:</p>
+    
+    <label for="merchantId">Merchant ID:</label>
+    <input type="text" id="merchantId" name="merchantId" value="R2KOB5MP23"><br><br>
+    
+    <label for="orderId">Order ID:</label>
+    <input type="text" id="orderId" name="orderId" value=""><br><br>
+    
+    <label for="orderAmount">Order Amount:</label>
+    <input type="text" id="orderAmount" name="orderAmount" value=""><br><br>
+    
+    <label for="orderCurrency">Order Currency:</label>
+    <input type="text" id="orderCurrency" name="orderCurrency" value="USD"><br><br>
+    
+    <button onclick="openPaymentWidget()">Pay with ATLOS</button>
+    
+    <script>
+        function openPaymentWidget() {
+            const merchantId = document.getElementById("merchantId").value;
+            const orderId = document.getElementById("orderId").value;
+            const orderAmount = document.getElementById("orderAmount").value;
+            const orderCurrency = document.getElementById("orderCurrency").value;
+
+            // Generate the payment widget URL with parameters
+            const paymentUrl = `https://atlos.io/api/paymentWidget?merchantId=${merchantId}&orderId=${orderId}&orderAmount=${orderAmount}&orderCurrency=${orderCurrency}`;
+
+            // Open the payment widget in a new window
+            window.open(paymentUrl, "_blank");
+        }
+    </script>
+</body>
+</html>
